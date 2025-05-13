@@ -1,35 +1,38 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <title>Best store!</title>
-    <script type="text/javascript" src="/static/update.js"></script>
-    <link href="static/store.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 
-<body>
-    <h1>Furniture store:</h1>
-    <h3>Add new product:</h3>
-    <form>
-        <div>
-            <input type="text" name="prod_name" id="prod_name">
-            <label for="prod_name">Product name</label>
+<body
+    style="height: 100vh; width: 100%; background-image: url(../static/hiking.jpg); background-position: center center; background-size: contain; background-repeat: no-repeat;">
+    <div
+        style="height: 50%; width: 25%; top: 25%; left: 60%; position: relative; border-radius: 17px; background-color: white; display: flex; flex-direction: column; justify-content: center; text-align: center;">
+        
+        {% for item in array%}
+        <div style="display: flex; justify-content: space-around;">
+            <div style="display: inline-block;">Дата: {{ item.date }}</div>
+            <div style="display: inline-block;">Шагов пройдено: {{ item.amount }}</div>
         </div>
-        <div>
-            <input type="number" name="price" id="price">
-            <label for="price">Price (rub.)</label>
-        </div>
-        <button onClick="addProduct()">Add</button>
-    </form>
-    <ul>
-        {% for product in products_list %}
-        <li>
-            <div>
-                <div>{{ product['prod_name'] }}</div>
-                <div>{{ product['price'] }} rub.</div>
-                <input value="{{product['id']}}" onChange="updateProd(this)" name="in_stock" type="checkbox" {% if product.in_stock %} checked {% endif %}>
-                <label for="in_stock">In stock</label>
-            </div>
-        </li>
         {% endfor %}
-    </ul>
+
+        <form method="post" action="/">
+            <div style="width: 100%; display: flex; position: absolute; bottom: 0px; border-radius: 17px; border: 2px; border-color: aqua; margin-bottom: 20px; justify-content: space-around;">
+                <input type="date" id="date" name="date" style="display: inline-block; position: relative; width: 100px;">
+                <input type="number" id="amount" name="amount" style="display: inline-block; position: relative; width: 50px;">
+                <input type="submit" id="button" name="button" value="Отправить" onclick='if ( window.history.replaceState ) {window.history.replaceState( null, null, window.location.href );} window.location.replace("/");'
+                    style="display: inline-block; position: relative; width: 60px; font-size: xx-small; text-align: center;">
+                <button type="button" style="display: inline-block; position: relative; width: 60px; font-size: xx-small; text-align: center;" onclick='var xhr = new XMLHttpRequest(); xhr.open("POST", "/handle_clear", true);
+xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+xhr.send("AAA"); window.location.replace("/");'>Очистить</button>
+                <!-- <button style="display: inline-block; position: relative; width: 60px; font-size: xx-small; text-align: center;">Отправить</button> -->
+            </div>
+        </form>
+
+    </div>
 </body>
+
 </html>
